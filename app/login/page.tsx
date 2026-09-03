@@ -13,7 +13,7 @@ export default async function LoginPage() {
     <section className="choice-card auth-card">
       <p className="kicker">One minute. Real momentum.</p>
       <h1>Welcome to GrowthMinute</h1>
-      <p className="choice-intro">Create your account or sign in directly with your email. No ChatGPT account required.</p>
+      <p className="choice-intro">Create your account or sign in directly with your email.</p>
       <AuthForm />
     </section>
   </main>;
