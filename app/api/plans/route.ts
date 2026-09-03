@@ -1,9 +1,11 @@
 import { randomUUID } from "node:crypto";
 import { getDb } from "../../../db";
 import { plans } from "../../../db/schema";
+import { getGrowthMinuteUserId } from "../../growthminute-user";
 
 export async function POST(request: Request) {
   try {
+    if (!(await getGrowthMinuteUserId())) return Response.json({ error: "Please sign in to create a plan." }, { status: 401 });
     const payload = await request.json() as { title?: string; planDate?: string; sourceText?: string; items?: unknown };
     const title = payload.title?.trim() || "Today’s Growth Plan";
     const planDate = payload.planDate?.trim() || new Date().toISOString().slice(0, 10);

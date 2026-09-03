@@ -1,5 +1,8 @@
-import WelcomePage from "./welcome/page";
+import { redirect } from "next/navigation";
+import { getGrowthMinuteUserId } from "./growthminute-user";
 
-export default function Home() {
-  return <WelcomePage />;
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  redirect((await getGrowthMinuteUserId()) ? "/welcome" : "/login");
 }

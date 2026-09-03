@@ -14,7 +14,7 @@ const products = [
   { value: "both" as const, title: "Both products", description: "Use Growth Plan and Cash Flow from one GrowthMinute account.", icon: Check },
 ];
 
-export default function ProductChoice({ initialChoice, name, signedIn, signInPaths }: { initialChoice: Choice | null; name: string | null; signedIn: boolean; signInPaths: Record<Choice, string> }) {
+export default function ProductChoice({ initialChoice }: { initialChoice: Choice | null }) {
   const [choice, setChoice] = useState<Choice | null>(initialChoice);
   const [saving, setSaving] = useState(false);
 
@@ -30,9 +30,9 @@ export default function ProductChoice({ initialChoice, name, signedIn, signInPat
 
   return <main className="choice-shell">
     <Toaster position="top-center" richColors />
-    <header className="choice-brand"><span className="brand-mark"><Flower2 size={21} /></span><span>GrowthMinute</span></header>
+    <header className="choice-brand"><span className="brand-mark"><Flower2 size={21} /></span><span>GrowthMinute</span><span className="choice-brand-actions"><form action="/auth/signout" method="post"><button type="submit">Sign out</button></form></span></header>
     <section className="choice-card">
-      <p className="kicker">{name ? `Welcome, ${name}` : "Welcome to GrowthMinute"}</p>
+      <p className="kicker">Welcome to GrowthMinute</p>
       <h1>What would you like to use?</h1>
       <p className="choice-intro">Choose one product or keep both. You can change this later.</p>
       <div className="product-options" role="radiogroup" aria-label="Choose your GrowthMinute products">
@@ -40,7 +40,7 @@ export default function ProductChoice({ initialChoice, name, signedIn, signInPat
           <span className="product-icon"><Icon /></span><span><strong>{title}</strong><small>{description}</small></span><span className="choice-tick"><Check /></span>
         </button>)}
       </div>
-      {signedIn ? <Button className="primary-action" onClick={continueToProduct} disabled={!choice || saving}>{saving && <Loader2 className="animate-spin" />} Continue</Button> : choice ? <a className="choice-continue" href={signInPaths[choice]} target="_top">Continue</a> : <button className="choice-continue disabled" type="button" disabled>Continue</button>}
+      <Button className="primary-action" onClick={continueToProduct} disabled={!choice || saving}>{saving && <Loader2 className="animate-spin" />} Continue</Button>
       <p className="choice-note">Each product works independently under the GrowthMinute brand.</p>
     </section>
   </main>;
