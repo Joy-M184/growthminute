@@ -59,6 +59,7 @@ export default function GrowthPlanApp() {
   useEffect(() => {
     const code = new URLSearchParams(window.location.search).get("plan");
     if (!code) return;
+    setLoadingPlan(true);
     fetch(`/api/plans/${encodeURIComponent(code)}`)
       .then(async (response) => {
         if (!response.ok) throw new Error("This plan could not be found.");
@@ -72,6 +73,7 @@ export default function GrowthPlanApp() {
   useEffect(() => {
     const key = new URLSearchParams(window.location.search).get("manage");
     if (!key) return;
+    setLoadingDashboard(true);
     fetch(`/api/manage/${encodeURIComponent(key)}`)
       .then(async (response) => {
         const data = await response.json();
@@ -105,8 +107,8 @@ export default function GrowthPlanApp() {
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error ?? "Could not publish this plan.");
-      setPublishedUrl(`${window.location.origin}/?plan=${data.plan.code}`);
-      setDashboardUrl(`${window.location.origin}/?manage=${data.plan.adminKey}`);
+      setPublishedUrl(`${window.location.origin}/growth-plan?plan=${data.plan.code}`);
+      setDashboardUrl(`${window.location.origin}/growth-plan?manage=${data.plan.adminKey}`);
       toast.success("Your checklist is ready to share.");
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Could not publish this plan.");
