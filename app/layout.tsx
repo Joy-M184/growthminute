@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { GoogleAnalytics } from "@/components/google-analytics";
 import "./globals.css";
 
 const title = "GrowthMinute — Grow with intention";
@@ -46,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">{children}<GoogleAnalytics /></body>
     </html>
   );
 }
